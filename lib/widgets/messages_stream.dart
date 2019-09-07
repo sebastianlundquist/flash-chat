@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'message_bubble.dart';
 
 class MessagesStream extends StatelessWidget {
-  MessagesStream({@required this.store});
+  MessagesStream({@required this.store, @required this.loggedInUser});
 
-  final store;
+  final Firestore store;
+  final FirebaseUser loggedInUser;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +24,12 @@ class MessagesStream extends StatelessWidget {
         for (var message in messages) {
           final messageText = message.data['text'];
           final messageSender = message.data['sender'];
-          final messageWidget =
-              MessageBubble(sender: messageSender, text: messageText);
+          final currentUser = loggedInUser.email;
+          final messageWidget = MessageBubble(
+            sender: messageSender,
+            text: messageText,
+            isMe: currentUser == messageSender,
+          );
           messageWidgets.add(messageWidget);
         }
         return Expanded(

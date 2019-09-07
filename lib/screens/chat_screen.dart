@@ -58,6 +58,7 @@ class _ChatScreenState extends State<ChatScreen> {
           children: <Widget>[
             MessagesStream(
               store: _store,
+              loggedInUser: loggedInUser,
             ),
             Container(
               decoration: kMessageContainerDecoration,
