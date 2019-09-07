@@ -12,7 +12,7 @@ class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: store.collection('messages').snapshots(),
+      stream: store.collection('messages').orderBy('timestamp').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Center(

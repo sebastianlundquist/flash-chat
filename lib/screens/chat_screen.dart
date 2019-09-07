@@ -80,6 +80,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       _store.collection('messages').add({
                         'text': message,
                         'sender': loggedInUser.email,
+                        'timestamp': FieldValue.serverTimestamp(),
                       });
                     },
                     child: Text(
